@@ -18,8 +18,8 @@ admin.register_handlers_admin(dp)
 dicegame.register_handlers_1commands(dp)
 fsm_mentor.register_handlers_fsm_mentor(dp)
 
-extra.register_handlers_extra(dp)
+# extra.register_handlers_extra(dp)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    executor.start_polling(dp, skip_updates=False, on_startup=on_startup)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)

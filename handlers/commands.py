@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import bot
+from handlers.hw7 import question
 
 
 async def start_command(message: types.Message) -> None:
@@ -42,7 +43,8 @@ async def get_mem(message: types.Message):
 
 
 
-
+async def find(message: types.Message):
+    await message.answer(question(message))
 
 
 
@@ -50,6 +52,7 @@ def register_handlers_commands( dp : Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
     dp.register_message_handler(get_mem, commands=['mem'])
+    dp.register_message_handler(find, commands=['find'])
 
 
 
