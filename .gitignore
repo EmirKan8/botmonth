@@ -1,4 +1,4 @@
-parser
+parsers
 venv
 database.db
 .env

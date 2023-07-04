@@ -2,6 +2,7 @@ from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import bot
 from handlers.hw7 import question
+from parsers.perser import parser
 
 
 async def start_command(message: types.Message) -> None:
@@ -9,7 +10,6 @@ async def start_command(message: types.Message) -> None:
                                             f"начинаем \n"
                                             f"викторину -> /quiz \n"
                                             f"прикольный mem  -> /mem\n")
-
 
 
 async def quiz_1(message: types.Message) -> None:
@@ -27,7 +27,6 @@ async def quiz_1(message: types.Message) -> None:
 
     ]
 
-
     await message.answer_poll(
         question=quiestion,
         options=answers,
@@ -37,27 +36,28 @@ async def quiz_1(message: types.Message) -> None:
         reply_markup=markup
     )
 
-async def get_mem(message: types.Message):
-    photo = open (r"",'rb')
-    await bot.send_photo(message.chat.id, photo=photo)
 
+async def get_mem(message: types.Message):
+    photo = open(r"", 'rb')
+    await bot.send_photo(message.chat.id, photo=photo)
 
 
 async def find(message: types.Message):
     await message.answer(question(message))
 
 
+async def get(message: types.Message):
+    pars = parser()
 
-def register_handlers_commands( dp : Dispatcher):
+    for ps in pars:
+        await message.answer(f'{ps["url"]}\n'
+                             f'{ps["time"]}\n'
+                             f'{ps["title"]}\n')
+
+
+def register_handlers_commands(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
     dp.register_message_handler(get_mem, commands=['mem'])
     dp.register_message_handler(find, commands=['find'])
-
-
-
-
-
-
-
-
+    dp.register_message_handler(get, commands=['ps'])
